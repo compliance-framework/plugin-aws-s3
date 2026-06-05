@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	awsconfig "github.com/aws/aws-sdk-go-v2/config"
 	"github.com/compliance-framework/agent/runner"
@@ -18,6 +19,12 @@ type CompliancePlugin struct {
 	rawConfig  map[string]string
 	config     *internal.PluginConfig
 	policyData map[string]interface{}
+}
+
+const defaultEvalTimeout = 10 * time.Minute
+
+func newEvalContext() (context.Context, context.CancelFunc) {
+	return context.WithTimeout(context.Background(), defaultEvalTimeout)
 }
 
 func (l *CompliancePlugin) Configure(req *proto.ConfigureRequest) (*proto.ConfigureResponse, error) {
@@ -47,7 +54,9 @@ func (l *CompliancePlugin) Init(req *proto.InitRequest, apiHelper runner.ApiHelp
 }
 
 func (l *CompliancePlugin) Eval(request *proto.EvalRequest, apiHelper runner.ApiHelper) (*proto.EvalResponse, error) {
-	ctx := context.Background()
+	ctx, cancel := newEvalContext()
+	defer cancel()
+
 	evalStatus := proto.ExecutionStatus_SUCCESS
 	var accumulatedErrors error
 

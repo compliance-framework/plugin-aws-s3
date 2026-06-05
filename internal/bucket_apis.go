@@ -37,15 +37,26 @@ func getBucketEncryption(ctx context.Context, client *s3.Client, bucketName stri
 		return BucketEncryption{}, err
 	}
 
+	return bucketEncryptionFromOutput(output), nil
+}
+
+func bucketEncryptionFromOutput(output *s3.GetBucketEncryptionOutput) BucketEncryption {
+	if output == nil || output.ServerSideEncryptionConfiguration == nil {
+		return BucketEncryption{}
+	}
+
 	rules := make([]BucketEncryptionRule, 0, len(output.ServerSideEncryptionConfiguration.Rules))
 	for _, rule := range output.ServerSideEncryptionConfiguration.Rules {
+		if rule.ApplyServerSideEncryptionByDefault == nil {
+			continue
+		}
 		rules = append(rules, BucketEncryptionRule{
 			Algorithm:        string(rule.ApplyServerSideEncryptionByDefault.SSEAlgorithm),
 			KmsKeyArn:        aws.ToString(rule.ApplyServerSideEncryptionByDefault.KMSMasterKeyID),
 			BucketKeyEnabled: aws.ToBool(rule.BucketKeyEnabled),
 		})
 	}
-	return BucketEncryption{Rules: rules}, nil
+	return BucketEncryption{Rules: rules}
 }
 
 func getBucketPublicAccessBlock(ctx context.Context, client *s3.Client, bucketName string) (BucketPublicAccessBlock, error) {
@@ -56,13 +67,22 @@ func getBucketPublicAccessBlock(ctx context.Context, client *s3.Client, bucketNa
 		}
 		return BucketPublicAccessBlock{}, err
 	}
+
+	return bucketPublicAccessBlockFromOutput(output), nil
+}
+
+func bucketPublicAccessBlockFromOutput(output *s3.GetPublicAccessBlockOutput) BucketPublicAccessBlock {
+	if output == nil || output.PublicAccessBlockConfiguration == nil {
+		return BucketPublicAccessBlock{}
+	}
+
 	pab := output.PublicAccessBlockConfiguration
 	return BucketPublicAccessBlock{
 		BlockPublicAcls:       aws.ToBool(pab.BlockPublicAcls),
 		IgnorePublicAcls:      aws.ToBool(pab.IgnorePublicAcls),
 		BlockPublicPolicy:     aws.ToBool(pab.BlockPublicPolicy),
 		RestrictPublicBuckets: aws.ToBool(pab.RestrictPublicBuckets),
-	}, nil
+	}
 }
 
 func getBucketPolicy(ctx context.Context, client *s3.Client, bucketName string) (BucketPolicyDocument, string, error) {
@@ -85,7 +105,16 @@ func getBucketPolicyStatus(ctx context.Context, client *s3.Client, bucketName st
 		}
 		return BucketPolicyStatus{}, err
 	}
-	return BucketPolicyStatus{IsPublic: aws.ToBool(output.PolicyStatus.IsPublic)}, nil
+
+	return bucketPolicyStatusFromOutput(output), nil
+}
+
+func bucketPolicyStatusFromOutput(output *s3.GetBucketPolicyStatusOutput) BucketPolicyStatus {
+	if output == nil || output.PolicyStatus == nil {
+		return BucketPolicyStatus{}
+	}
+
+	return BucketPolicyStatus{IsPublic: aws.ToBool(output.PolicyStatus.IsPublic)}
 }
 
 func getBucketOwnershipControls(ctx context.Context, client *s3.Client, bucketName string) (BucketOwnershipControls, error) {
@@ -176,15 +205,26 @@ func getBucketReplication(ctx context.Context, client *s3.Client, bucketName str
 		return BucketReplication{}, err
 	}
 
+	return bucketReplicationFromOutput(output), nil
+}
+
+func bucketReplicationFromOutput(output *s3.GetBucketReplicationOutput) BucketReplication {
+	if output == nil || output.ReplicationConfiguration == nil {
+		return BucketReplication{}
+	}
+
 	rules := make([]BucketReplicationRule, 0, len(output.ReplicationConfiguration.Rules))
 	for _, rule := range output.ReplicationConfiguration.Rules {
+		if rule.Destination == nil {
+			continue
+		}
 		rules = append(rules, BucketReplicationRule{
 			ID:                   aws.ToString(rule.ID),
 			Status:               string(rule.Status),
 			DestinationBucketArn: aws.ToString(rule.Destination.Bucket),
 		})
 	}
-	return BucketReplication{Role: aws.ToString(output.ReplicationConfiguration.Role), Rules: rules}, nil
+	return BucketReplication{Role: aws.ToString(output.ReplicationConfiguration.Role), Rules: rules}
 }
 
 func getBucketLogging(ctx context.Context, client *s3.Client, bucketName string) (BucketLogging, error) {

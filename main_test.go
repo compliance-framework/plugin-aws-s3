@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"testing"
+	"time"
+)
 
 func TestSupportedPolicyBehaviors(t *testing.T) {
 	behaviors := supportedPolicyBehaviors()
@@ -15,5 +18,20 @@ func TestBuildRequiredDatasetsForBucketPolicies(t *testing.T) {
 	})
 	if !required["buckets"] {
 		t.Fatalf("buildRequiredDatasets() = %v, want buckets dataset to be required", required)
+	}
+}
+
+func TestNewEvalContextHasDefaultTimeout(t *testing.T) {
+	ctx, cancel := newEvalContext()
+	defer cancel()
+
+	deadline, ok := ctx.Deadline()
+	if !ok {
+		t.Fatal("newEvalContext() deadline missing")
+	}
+
+	remaining := time.Until(deadline)
+	if remaining <= 0 || remaining > defaultEvalTimeout {
+		t.Fatalf("newEvalContext() deadline remaining = %s, want within %s", remaining, defaultEvalTimeout)
 	}
 }
