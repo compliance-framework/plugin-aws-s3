@@ -28,41 +28,41 @@ type BucketDataset struct {
 }
 
 type BucketPolicyContext struct {
-	Current          BucketCurrent             `json:"current"`
-	BucketHomeRegion string                    `json:"bucket_home_region"`
-	Tags             map[string]string         `json:"tags,omitempty"`
-	Encryption       BucketEncryption          `json:"encryption,omitempty"`
-	PublicAccessBlock BucketPublicAccessBlock  `json:"public_access_block,omitempty"`
-	Policy           BucketPolicyDocument      `json:"policy,omitempty"`
-	PolicyHash       string                    `json:"policy_hash,omitempty"`
-	PolicyStatus     BucketPolicyStatus        `json:"policy_status,omitempty"`
-	OwnershipControls BucketOwnershipControls  `json:"ownership_controls,omitempty"`
-	Versioning       BucketVersioning          `json:"versioning,omitempty"`
-	ObjectLock       BucketObjectLock          `json:"object_lock,omitempty"`
-	Lifecycle        BucketLifecycle           `json:"lifecycle,omitempty"`
-	Replication      BucketReplication         `json:"replication,omitempty"`
-	Logging          BucketLogging             `json:"logging,omitempty"`
-	Website          BucketWebsite             `json:"website,omitempty"`
+	Current           BucketCurrent           `json:"current"`
+	BucketHomeRegion  string                  `json:"bucket_home_region"`
+	Tags              map[string]string       `json:"tags,omitempty"`
+	Encryption        BucketEncryption        `json:"encryption,omitempty"`
+	PublicAccessBlock BucketPublicAccessBlock `json:"public_access_block,omitempty"`
+	Policy            BucketPolicyDocument    `json:"policy,omitempty"`
+	PolicyHash        string                  `json:"policy_hash,omitempty"`
+	PolicyStatus      BucketPolicyStatus      `json:"policy_status,omitempty"`
+	OwnershipControls BucketOwnershipControls `json:"ownership_controls,omitempty"`
+	Versioning        BucketVersioning        `json:"versioning,omitempty"`
+	ObjectLock        BucketObjectLock        `json:"object_lock,omitempty"`
+	Lifecycle         BucketLifecycle         `json:"lifecycle,omitempty"`
+	Replication       BucketReplication       `json:"replication,omitempty"`
+	Logging           BucketLogging           `json:"logging,omitempty"`
+	Website           BucketWebsite           `json:"website,omitempty"`
 }
 
 type BucketCurrent struct {
-	BucketName                    string `json:"bucket_name"`
-	BucketArn                     string `json:"bucket_arn"`
-	Region                        string `json:"region"`
-	TagsPresent                   bool   `json:"tags_present"`
-	IsPublic                      bool   `json:"is_public"`
-	EncryptionEnabled             bool   `json:"encryption_enabled"`
-	UsesKms                       bool   `json:"uses_kms"`
-	OwnershipEnforced             bool   `json:"ownership_enforced"`
-	IsVersioned                   bool   `json:"is_versioned"`
-	MfaDeleteEnabled              bool   `json:"mfa_delete_enabled"`
-	ObjectLockEnabled             bool   `json:"object_lock_enabled"`
-	HasLifecycleRules             bool   `json:"has_lifecycle_rules"`
-	LifecycleMinExpirationDays    int    `json:"lifecycle_min_expiration_days"`
-	HasNoncurrentVersionExpiration bool  `json:"has_noncurrent_version_expiration"`
-	LoggingEnabled                bool   `json:"logging_enabled"`
-	ReplicationEnabled            bool   `json:"replication_enabled"`
-	WebsiteHostingEnabled         bool   `json:"website_hosting_enabled"`
+	BucketName                     string `json:"bucket_name"`
+	BucketArn                      string `json:"bucket_arn"`
+	Region                         string `json:"region"`
+	TagsPresent                    bool   `json:"tags_present"`
+	IsPublic                       bool   `json:"is_public"`
+	EncryptionEnabled              bool   `json:"encryption_enabled"`
+	UsesKms                        bool   `json:"uses_kms"`
+	OwnershipEnforced              bool   `json:"ownership_enforced"`
+	IsVersioned                    bool   `json:"is_versioned"`
+	MfaDeleteEnabled               bool   `json:"mfa_delete_enabled"`
+	ObjectLockEnabled              bool   `json:"object_lock_enabled"`
+	HasLifecycleRules              bool   `json:"has_lifecycle_rules"`
+	LifecycleMinExpirationDays     int    `json:"lifecycle_min_expiration_days"`
+	HasNoncurrentVersionExpiration bool   `json:"has_noncurrent_version_expiration"`
+	LoggingEnabled                 bool   `json:"logging_enabled"`
+	ReplicationEnabled             bool   `json:"replication_enabled"`
+	WebsiteHostingEnabled          bool   `json:"website_hosting_enabled"`
 }
 
 type BucketEncryption struct {
@@ -100,10 +100,10 @@ type BucketVersioning struct {
 }
 
 type BucketObjectLock struct {
-	Enabled              bool   `json:"enabled"`
-	DefaultRetentionMode string `json:"default_retention_mode,omitempty"`
-	DefaultRetentionDays int    `json:"default_retention_days,omitempty"`
-	DefaultRetentionYears int   `json:"default_retention_years,omitempty"`
+	Enabled               bool   `json:"enabled"`
+	DefaultRetentionMode  string `json:"default_retention_mode,omitempty"`
+	DefaultRetentionDays  int    `json:"default_retention_days,omitempty"`
+	DefaultRetentionYears int    `json:"default_retention_years,omitempty"`
 }
 
 type BucketLifecycle struct {
@@ -264,23 +264,23 @@ func collectBucketDataset(ctx context.Context, client *s3.Client, bucketName str
 
 	bucketArn := fmt.Sprintf("arn:aws:s3:::%s", bucketName)
 	current := BucketCurrent{
-		BucketName:                    bucketName,
-		BucketArn:                     bucketArn,
-		Region:                        region,
-		TagsPresent:                   len(tags) > 0,
-		IsPublic:                      policyStatus.IsPublic,
-		EncryptionEnabled:             len(encryption.Rules) > 0,
-		UsesKms:                       bucketUsesKMS(encryption),
-		OwnershipEnforced:             ownershipControls.ObjectOwnership == string(s3types.ObjectOwnershipBucketOwnerEnforced),
-		IsVersioned:                   versioning.Status == string(s3types.BucketVersioningStatusEnabled),
-		MfaDeleteEnabled:              versioning.MFADelete == string(s3types.MFADeleteStatusEnabled),
-		ObjectLockEnabled:             objectLock.Enabled,
-		HasLifecycleRules:             len(lifecycle.Rules) > 0,
-		LifecycleMinExpirationDays:    minLifecycleExpirationDays(lifecycle),
+		BucketName:                     bucketName,
+		BucketArn:                      bucketArn,
+		Region:                         region,
+		TagsPresent:                    len(tags) > 0,
+		IsPublic:                       policyStatus.IsPublic,
+		EncryptionEnabled:              len(encryption.Rules) > 0,
+		UsesKms:                        bucketUsesKMS(encryption),
+		OwnershipEnforced:              ownershipControls.ObjectOwnership == string(s3types.ObjectOwnershipBucketOwnerEnforced),
+		IsVersioned:                    versioning.Status == string(s3types.BucketVersioningStatusEnabled),
+		MfaDeleteEnabled:               versioning.MFADelete == string(s3types.MFADeleteStatusEnabled),
+		ObjectLockEnabled:              objectLock.Enabled,
+		HasLifecycleRules:              len(lifecycle.Rules) > 0,
+		LifecycleMinExpirationDays:     minLifecycleExpirationDays(lifecycle),
 		HasNoncurrentVersionExpiration: hasNoncurrentVersionExpiration(lifecycle),
-		LoggingEnabled:                strings.TrimSpace(logging.TargetBucket) != "",
-		ReplicationEnabled:            hasEnabledReplication(replication),
-		WebsiteHostingEnabled:         website.HostingEnabled,
+		LoggingEnabled:                 strings.TrimSpace(logging.TargetBucket) != "",
+		ReplicationEnabled:             hasEnabledReplication(replication),
+		WebsiteHostingEnabled:          website.HostingEnabled,
 	}
 
 	return BucketDataset{

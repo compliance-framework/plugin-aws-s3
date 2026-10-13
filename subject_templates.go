@@ -5,13 +5,13 @@ import "github.com/compliance-framework/agent/runner/proto"
 func buildSubjectTemplates() []*proto.SubjectTemplate {
 	return []*proto.SubjectTemplate{
 		{
-			Name:              "aws-s3-bucket",
-			Type:              proto.SubjectType_SUBJECT_TYPE_COMPONENT,
-			TitleTemplate:     `AWS S3 bucket {{ .bucket_name }} in {{ .region }}`,
+			Name:                "aws-s3-bucket",
+			Type:                proto.SubjectType_SUBJECT_TYPE_COMPONENT,
+			TitleTemplate:       `AWS S3 bucket {{ .bucket_name }} in {{ .region }}`,
 			DescriptionTemplate: `Amazon S3 bucket {{ .bucket_name }} in AWS region {{ .region }}.`,
-			PurposeTemplate:   "Represents an Amazon S3 bucket evaluated for storage compliance posture.",
-			IdentityLabelKeys: []string{"provider", "region", "bucket_name"},
-			SelectorLabels:    selectorLabelsForType("bucket"),
+			PurposeTemplate:     "Represents an Amazon S3 bucket evaluated for storage compliance posture.",
+			IdentityLabelKeys:   []string{"provider", "region", "bucket_name"},
+			SelectorLabels:      selectorLabelsForType("bucket"),
 			LabelSchema: labelSchema(
 				label("provider", "Cloud provider for the evaluated resource"),
 				label("type", "S3 plugin resource type"),
