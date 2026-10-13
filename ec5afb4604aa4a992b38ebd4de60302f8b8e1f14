@@ -1,0 +1,5 @@
+lisa-design:
+- ci.yml is mock-plugin-1's caller verbatim (workflows v1.5.1 pin) minus its mock-only header comment, with push: branches: [master] because master is this repo's default branch (kept, decided 2026-10-13).
+- push.yml/test.yml deleted: nothing else called test.yml (release.yml only calls build-and-upload.yml). release.yml and build-and-upload.yml untouched (W3 replaces them).
+- .goreleaser.yaml archives.format -> formats: [tar.gz] to clear the goreleaser check deprecation; snapshot release archives compared before/after: same 5 names, platforms and contents (LICENSE, README.md, plugin). build-and-upload.yml uses goreleaser '~> v2', which supports formats.
+- Pre-existing lint (2 ineffassign, 1 staticcheck SA4010 in internal/data.go and internal/eval.go) is not reported with --new-from-merge-base; left as a follow-up, not fixed here.
