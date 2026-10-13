@@ -1,0 +1,5 @@
+lisa-design:
+- Callers, release-please-config.json, ci.yml pins and the .goreleaser.yaml release block are copied byte-for-byte from the reviewed batch-1 master pilot (plugin-github-repositories#26 at 3dd5c2b), itself mock-plugin-1 with pins moved to v1.5.2, push branch master and the (W1-S1) suffix dropped.
+- Manifest seeded at 0.1.0: latest final release v0.1.0 (tag vX.Y.Z, ancestor of master), so no bootstrap-sha.
+- README unchanged: it has no release section (only go test / make build).
+- Builds and archives in .goreleaser.yaml unchanged; only release.prerelease auto + replace_existing_artifacts added, as release-go-plugin.yml requires.
