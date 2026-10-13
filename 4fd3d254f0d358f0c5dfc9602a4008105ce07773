@@ -1,0 +1,5 @@
+lisa-design:
+- Plugin already kept req.GetPolicyData().AsMap() from Configure (since the v0.7.0 bump) and passes it to every policy evaluation, so no code change was needed: title stays fix(deps).
+- go directive was already 1.26.1, so go get did not move it.
+- Pre-existing gofmt drift (internal/buckets.go, subject_templates.go) fixed in a separate whitespace-only style: commit so the shared CI's gofmt step (layer 2) passes.
+- Plugin serves runner.RunnerV2GRPCPlugin and implements Init (protocol v2): no W2-S2-T02 work needed.
