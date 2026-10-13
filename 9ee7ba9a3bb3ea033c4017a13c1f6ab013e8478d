@@ -3,3 +3,6 @@ lisa-design:
 - Manifest seeded at 0.1.0: latest final release v0.1.0 (tag vX.Y.Z, ancestor of master), so no bootstrap-sha.
 - README unchanged: it has no release section (only go test / make build).
 - Builds and archives in .goreleaser.yaml unchanged; only release.prerelease auto + replace_existing_artifacts added, as release-go-plugin.yml requires.
+
+lisa-selfreview:
+- Pass 1 (strict): diff checked against the pilot's merged files (identical except the manifest seed), actionlint v1.7.12 clean, go build/test pass, goreleaser check + snapshot produce the v0.1.0 asset names with LICENSE/README.md/plugin. No findings.
