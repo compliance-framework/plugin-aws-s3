@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.3](https://github.com/compliance-framework/plugin-aws-s3/compare/v0.1.2...v0.1.3) (2026-10-30)
+
+
+### Bug Fixes
+
+* **deps:** build with the go1.26.10 toolchain so Renovate can ship Go security fixes ([#24](https://github.com/compliance-framework/plugin-aws-s3/issues/24)) ([3122980](https://github.com/compliance-framework/plugin-aws-s3/commit/312298091bafeff316301ce11b94d91be7d2339f))
+* **deps:** update aws-sdk-go-v2 monorepo ([#30](https://github.com/compliance-framework/plugin-aws-s3/issues/30)) ([0307b0a](https://github.com/compliance-framework/plugin-aws-s3/commit/0307b0ad24114d0739e7c30cb2ccb56d3c62bcbb))
+* **deps:** update module github.com/aws/aws-sdk-go-v2/service/s3 to v1.114.4 ([#25](https://github.com/compliance-framework/plugin-aws-s3/issues/25)) ([b75f4c4](https://github.com/compliance-framework/plugin-aws-s3/commit/b75f4c4e3ca679900fa2b9c00d5c786a76c9f339))
+* **deps:** update module github.com/aws/smithy-go to v1.28.6 ([#26](https://github.com/compliance-framework/plugin-aws-s3/issues/26)) ([ce9a1a8](https://github.com/compliance-framework/plugin-aws-s3/commit/ce9a1a8047f6be407ad9269851758938108dcf64))
+
 ## [0.1.2](https://github.com/compliance-framework/plugin-aws-s3/compare/v0.1.1...v0.1.2) (2026-10-28)
 
 
