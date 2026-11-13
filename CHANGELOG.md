@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.4](https://github.com/compliance-framework/plugin-aws-s3/compare/v0.1.3...v0.1.4) (2026-11-13)
+
+
+### Bug Fixes
+
+* **deps:** update aws-sdk-go-v2 monorepo ([#37](https://github.com/compliance-framework/plugin-aws-s3/issues/37)) ([cf05e9e](https://github.com/compliance-framework/plugin-aws-s3/commit/cf05e9eb9816e8def9ecc7af775ed5aba2f838a9))
+* **deps:** update aws-sdk-go-v2 monorepo ([#39](https://github.com/compliance-framework/plugin-aws-s3/issues/39)) ([6cb9f36](https://github.com/compliance-framework/plugin-aws-s3/commit/6cb9f36c5bec688bc1d34a128e23cf6a7565d266))
+* **deps:** update module github.com/aws/aws-sdk-go-v2/config to v1.33.11 ([#32](https://github.com/compliance-framework/plugin-aws-s3/issues/32)) ([e88a90f](https://github.com/compliance-framework/plugin-aws-s3/commit/e88a90f6ed6091941595a96510c401e6d97eb713))
+* **deps:** update module github.com/aws/smithy-go to v1.28.7 ([#35](https://github.com/compliance-framework/plugin-aws-s3/issues/35)) ([3f5e4f2](https://github.com/compliance-framework/plugin-aws-s3/commit/3f5e4f2b5a978c3db75cd0c63692a56a9903f418))
+* **deps:** update security fixes (gomod) [security] ([#36](https://github.com/compliance-framework/plugin-aws-s3/issues/36)) ([4546019](https://github.com/compliance-framework/plugin-aws-s3/commit/4546019b8fbd99aedf1e08b26d7d4fb021b3b54d))
+
 ## [0.1.3](https://github.com/compliance-framework/plugin-aws-s3/compare/v0.1.2...v0.1.3) (2026-11-02)
 
 
